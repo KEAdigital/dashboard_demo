@@ -87,31 +87,11 @@ app.layout = html.Div(
 
 def update_graph(drop_month, drop_year):
 
-    print(drop_month)
-    print(drop_year)
 
-    if bool(drop_month) == False or bool(drop_year) == False:
-        order_fig1 = order
-    
-    if bool(drop_month) == True or drop_year == 'None':
-        order_fig1 = order.loc[order['ordermonth'] == drop_month]
-
-    if drop_month == 'None' or bool(drop_year) == True:
+    if drop_year:
         order_fig1 = order.loc[order['orderyear'] == drop_year]
-
-    if bool(drop_month) == True or bool(drop_year) == True:
-        order_fig1 = order.loc[order['ordermonth'] == drop_month] & order.loc[order['orderyear'] == drop_year]
-
-
-#    if drop_month and drop_year:
-#       order_fig1 = order.loc[order['ordermonth'] == drop_month] & order.loc[order['orderyear'] == drop_year]
-#    else:
-#        order_fig1 = order
-#
-#    if drop_year:
-#        order_fig1 = order.loc[order['orderyear'] == drop_year]
-#    else:
-#       order_fig1 = order
+    else:
+       order_fig1 = order
         
 
     return {'data':[go.Bar(
