@@ -1,4 +1,3 @@
-#
 # Imports Dash
 import dash
 from dash import html
@@ -40,7 +39,10 @@ fig_employee.update_layout(uniformtext_minsize=8, uniformtext_mode='hide', xaxis
 # ***************************************
 # Activate the app
 # ***************************************
-app = dash.Dash(__name__)
+
+# app = dash.Dash(__name__)
+dash_app = dash.Dash(__name__)
+app = dash_app.server
 
 # ***************************************
 # Layout
@@ -86,14 +88,11 @@ app.layout = html.Div(
               [Input('drop_year', 'value')])
 
 def update_graph(drop_month, drop_year):
-
-
     if drop_year:
         order_fig1 = order.loc[order['orderyear'] == drop_year]
     else:
        order_fig1 = order
         
-
     return {'data':[go.Bar(
         x = order_fig1['productname'],
         y = order_fig1['total']
@@ -105,4 +104,4 @@ def update_graph(drop_month, drop_year):
 # Run the app
 # ***************************************
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    dash_app.run_server(debug=True)
