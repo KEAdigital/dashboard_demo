@@ -39,10 +39,7 @@ fig_employee.update_layout(uniformtext_minsize=8, uniformtext_mode='hide', xaxis
 # ***************************************
 # Activate the app
 # ***************************************
-
-# app = dash.Dash(__name__)
-dash_app = dash.Dash(__name__)
-app = dash_app.server
+app = dash.Dash(__name__)
 
 # ***************************************
 # Layout
