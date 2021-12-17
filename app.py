@@ -91,7 +91,7 @@ def update_graph(drop_month, drop_year):
     if drop_year:
         if drop_month:
             # Data i både drop_month og drop_year
-            order_fig1 = order.loc[order['orderyear'] == drop_year] & v
+            order_fig1 = order.loc[order['orderyear'] == drop_year] & order.loc[order['ordermonth'] == drop_month]
         else:
             # Data i drop_year. men ikke drop_month
             order_fig1 = order.loc[order['orderyear'] == drop_year
