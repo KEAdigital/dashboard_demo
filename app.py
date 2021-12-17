@@ -1,19 +1,21 @@
-# Imports Dash
+# ***************************************
+# Imports
+# ***************************************
+# Dash
 import dash
 from dash import html
 from dash import dcc
 from dash.dependencies import Input, Output
 
-# Imports Div.
+# Div.
 import pandas as pd
 import numpy as np
 import openpyxl
 import calendar
 
-# Imports Plotly
+# Plotly
 import plotly.express as px
 import plotly.graph_objects as go
-
 
 # ***************************************
 # Get data
@@ -22,7 +24,6 @@ import datamodel
 order = datamodel.get_data()
 df_year = datamodel.get_year()
 df_month = datamodel.get_month()
-
 
 # ***************************************
 # Diagram - Employee Sales
@@ -35,16 +36,18 @@ fig_employee = px.bar(order,
 fig_employee.update_traces(texttemplate='%{text:.2s}', textposition='outside')
 fig_employee.update_layout(uniformtext_minsize=8, uniformtext_mode='hide', xaxis_tickangle=45)
 
-
 # ***************************************
 # Activate the app
 # ***************************************
-app = dash.Dash(__name__)
+#app = dash.Dash(__name__)
+
+dash_app = dash.Dash(__name__)
+app = dash_app.server
 
 # ***************************************
 # Layout
 # ***************************************
-app.layout = html.Div(
+dash_app.layout = html.Div(
     children=[
         html.Div(className='row',
                 children=[
@@ -80,7 +83,7 @@ app.layout = html.Div(
 # ***************************************
 # Output er diagrammet
 # Input er DropDown
-@app.callback(Output('sales_employee', 'figure'),
+@dash_app.callback(Output('sales_employee', 'figure'),
               [Input('drop_month', 'value')],
               [Input('drop_year', 'value')])
 
@@ -101,4 +104,4 @@ def update_graph(drop_month, drop_year):
 # Run the app
 # ***************************************
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    dash_app.run_server(debug=True)
