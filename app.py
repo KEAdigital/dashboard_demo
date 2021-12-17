@@ -89,9 +89,19 @@ dash_app.layout = html.Div(
 
 def update_graph(drop_month, drop_year):
     if drop_year:
-        order_fig1 = order.loc[order['orderyear'] == drop_year]
+        if drop_month:
+            # Data i både drop_month og drop_year
+            order_fig1 = order.loc[order['orderyear'] == drop_year] & v
+        else:
+            # Data i drop_year. men ikke drop_month
+            order_fig1 = order.loc[order['orderyear'] == drop_year
     else:
-       order_fig1 = order
+        if drop_month:
+            # Data i drop_month, men ikke drop_year
+            order_fig1 = order.loc[order['ordermonth'] == drop_month]
+        else:
+            # Ingen data - ikke noget valgt
+            order_fig1 = order
         
     return {'data':[go.Bar(
         x = order_fig1['productname'],
