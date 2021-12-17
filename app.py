@@ -89,7 +89,10 @@ dash_app.layout = html.Div(
 
 def update_graph(drop_month, drop_year):
     if drop_year:
-        order_fig1 = order.loc[order['orderyear'] == drop_year]
+        if drop_year:
+            order_fig1 = order.loc[order['orderyear'] == drop_year] & order.loc[order['ordermonth'] == drop_month]
+        else:
+            order_fig1 = order.loc[order['orderyear'] == drop_year
     else:
         order_fig1 = order
         
